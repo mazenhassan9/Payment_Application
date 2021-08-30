@@ -15,7 +15,7 @@ typedef struct ST_terminalData_t
 
 }ST_terminalData_t;
 
-//Struture of the account balance at the server.
+//Structure of the account balance at the server.
 typedef struct ST_accountBalance_t
 {
 	char primaryAccountNumber[20];
@@ -35,7 +35,7 @@ typedef struct ST_transaction_t
     ST_cardData_t cardHolderData;
     ST_terminalData_t transData;
     EN_transStat_t transStat;
-}ST_transaction;
+}ST_transaction_t;
 
 // Defining Getting Inputs Function.
 
@@ -48,3 +48,5 @@ ST_terminalData_t GetInputAmount(char cardExpirationDate[6]);
 
 //3- Binary Search in the Server to return the place of the PAN in the data otherwise -1.
 int linearsearch(St_accountBalance_t *Database,char *PAN,int Size);
+
+int add_transaction(ST_transaction_t *Transactions, ST_transaction_t entry, int num_items);

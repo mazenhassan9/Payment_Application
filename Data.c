@@ -10,13 +10,15 @@ ST_cardData_t readCardData()
 
 	printf("Please Enter Card Data:\nPlease Enter the Card Holder Name:\n");
 	gets(x.cardHolderName);
+	fflush(stdin);
 
 	printf("Please Enter the Primary Account Number:\n");
 	gets(x.primaryAccountNumber);
+	fflush(stdin);
 
 	printf("Please card Expiry Date:\n");
 	gets(x.cardExpirationDate);
-
+	fflush(stdin);
 	return x;
 }
 
@@ -29,6 +31,7 @@ ST_terminalData_t GetInputAmount(char cardExpirationDate[6])
 	printf("Please Enter The Terminal Data:\n");
     printf("Please Enter The Transaction Amount:\n");
     scanf("%f",&data.transAmount);
+    fflush(stdin);
     if(data.transAmount > data.maxTransAmount)
     {
         return data;
@@ -36,6 +39,7 @@ ST_terminalData_t GetInputAmount(char cardExpirationDate[6])
     printf("Please Enter transaction Date 'DD/MM/YYYY':\n");
     char date[10];
     scanf("%s",&date);
+    fflush(stdin);
     const char s[2] = "/"; //"String Seperator"
 
     int Transaction_DD = atoi(strtok(date, s));
@@ -44,7 +48,7 @@ ST_terminalData_t GetInputAmount(char cardExpirationDate[6])
 
     int Card_MM = atoi(strtok(cardExpirationDate, s));
     int Card_YY = atoi(strtok(NULL, s)) + 2000;
-    if( Transaction_YY <= Card_YY && Transaction_MM <= Card_MM)
+    if( Transaction_YY <= Card_YY || Transaction_YY == Card_YY && Transaction_MM <= Card_MM)
     {
         data.transactionDate = date;
     }
@@ -65,4 +69,16 @@ int linearsearch(St_accountBalance_t *Database,char *PAN,int Size)
         }
     }
     return -1;
+}
+
+//add Transaction to the Transacions Database
+int add_transaction(ST_transaction_t *Transactions, ST_transaction_t entry, int num_items)
+{
+    if (num_items < 100)
+    {
+        Transactions[num_items] = entry;
+        num_items += 1;
+        return 1;
+    }
+    return 0;
 }
